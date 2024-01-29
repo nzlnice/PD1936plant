@@ -1,0 +1,117 @@
+#
+# Copyright (C) 2022 The Android Open Source Project
+# Copyright (C) 2022 SebaUbuntu's TWRP device tree generator
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+DEVICE_PATH := device/vivo/PD1936
+
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
+
+# Assert
+TARGET_OTA_ASSERT_DEVICE := PD1936
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-a
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_ABI2 :=
+TARGET_CPU_VARIANT := kryo
+
+TARGET_2ND_ARCH := arm
+TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_CPU_ABI := armeabi-v7a
+TARGET_2ND_CPU_ABI2 := armeabi
+TARGET_2ND_CPU_VARIANT := cortex-a73
+TARGET_USES_64_BIT_BINDER := true
+
+# Kernel
+BOARD_BOOTIMG_HEADER_VERSION := 2
+BOARD_KERNEL_BASE := 0x00000000
+BOARD_KERNEL_CMDLINE := console=null earlycon=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 product.version=PD1936_A_9.15.14 fingerprint.abbr=11/RP1A.200720.012 region_ver=W10 buildvariant=user androidboot.securebootkeyhash=2c0a52ffbd8db687b56f6a98d8840f46597a4dde6d9dc8d00039873ce6d74f60 androidboot.securebootkeyver=4
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_KERNEL_TAGS_OFFSET := 0x00000100
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_KERNEL_IMAGE_NAME := Image
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_KERNEL_SEPARATED_DTBO := true
+
+# Kernel - prebuilt
+TARGET_FORCE_PREBUILT_KERNEL := true
+ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_INCLUDE_DTB_IN_BOOTIMG := 
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+BOARD_KERNEL_SEPARATED_DTBO := 
+endif
+
+# Partitions
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
+BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 100663296
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 6192889856
+BOARD_VENDORIMAGE_PARTITION_SIZE := 2198528
+BOARD_HAS_LARGE_FILESYSTEM := true
+BOARD_SYSTEMIMAGE_PARTITION_TYPE := ext4
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_VENDOR := vendor
+
+# File systems
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+# Platform
+TARGET_BOARD_PLATFORM := qssi
+
+# Hack: prevent anti rollback
+PLATFORM_SECURITY_PATCH := 2099-12-31
+VENDOR_SECURITY_PATCH := 2099-12-31
+PLATFORM_VERSION := 16.1.0
+
+########
+# TWRP #
+########
+DEVICE_SCREEN_WIDTH := 1080
+DEVICE_SCREEN_HEIGHT := 2340
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_NO_BATT_PERCENT := false
+TW_USE_TOOLBOX := true
+TW_IGNORE_MISC_WIPE_DATA := true
+TW_HAS_EDL_MODE := true
+
+# Display
+TW_THEME := portrait_hdpi
+# DEVICE_RESOLUTION := 1080x2340 (deprecated)
+TW_DEFAULT_BRIGHTNESS := 188
+TW_MAX_BRIGHTNESS := 1023
+TW_Y_OFFSET := 80
+TW_H_OFFSET := -80
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_NO_SCREEN_BLANK := true
+TW_NO_SCREEN_TIMEOUT := true
+
+# Locale
+TW_EXTRA_LANGUAGES := true
+TW_DEFAULT_LANGUAGE := en
+
+# Excludes
+TW_EXCLUDE_TWRPAPP := true
+
+# Encryption
+# TW_INCLUDE_CRYPTO := true
+# TW_INCLUDE_CRYPTO_FBE := true
+# TW_INCLUDE_FBE := true
+
+# Debug
+TARGET_USES_LOGD := true
+TWRP_INCLUDE_LOGCAT := true
+

@@ -71,10 +71,8 @@ on boot
 	chown system /sys/class/vts/vivo_ts/firmware
 	chown system /sys/class/vts/vivo_ts/firmware_mp
 	chown system /sys/class/vts/vivo_ts/firmware_config
-	chown system /sys/class/vts/vivo_ts/firmware_factory
 	chown system /sys/class/vts/vivo_ts/gesture_points
 	chown system /sys/class/vts/vivo_ts/sensor_test
-	chown system /sys/class/vts/vivo_ts/add_incell_panel
 	chown system /sys/class/vts/vivo_ts/threshold
 	chown system /sys/class/vts/vivo_ts/touch_area
 	chown system /sys/class/vts/vivo_ts/version
@@ -89,8 +87,6 @@ on boot
 	chown system /sys/class/vts/vivo_ts/properties/ic
 	chown system /sys/class/vts/vivo_ts/properties/incell
 	chown system /sys/class/vts/vivo_ts/properties/lcmid
-	chown system /sys/class/vts/vivo_ts/properties/softid_cmdline
-	chown system /sys/class/vts/vivo_ts/properties/softid_module
 	chown system /sys/class/vts/vivo_ts/properties/long_press
 	chown system /sys/class/vts/vivo_ts/properties/need_calibration
 	chown system /sys/class/vts/vivo_ts/properties/no_flash
@@ -119,10 +115,8 @@ on boot
 	chown system /sys/class/vts/vivo_ts_second/firmware
 	chown system /sys/class/vts/vivo_ts_second/firmware_mp
 	chown system /sys/class/vts/vivo_ts_second/firmware_config
-	chown system /sys/class/vts/vivo_ts_second/firmware_factory
 	chown system /sys/class/vts/vivo_ts_second/gesture_points
 	chown system /sys/class/vts/vivo_ts_second/sensor_test
-	chown system /sys/class/vts/vivo_ts_second/add_incell_panel
 	chown system /sys/class/vts/vivo_ts_second/threshold
 	chown system /sys/class/vts/vivo_ts_second/touch_area
 	chown system /sys/class/vts/vivo_ts_second/version
@@ -137,8 +131,6 @@ on boot
 	chown system /sys/class/vts/vivo_ts_second/properties/ic
 	chown system /sys/class/vts/vivo_ts_second/properties/incell
 	chown system /sys/class/vts/vivo_ts_second/properties/lcmid
-	chown system /sys/class/vts/vivo_ts_second/properties/softid_cmdline
-	chown system /sys/class/vts/vivo_ts_second/properties/softid_module
 	chown system /sys/class/vts/vivo_ts_second/properties/long_press
 	chown system /sys/class/vts/vivo_ts_second/properties/need_calibration
 	chown system /sys/class/vts/vivo_ts_second/properties/no_flash
@@ -162,18 +154,10 @@ on boot
 	chown system /sys/class/vts/vivo_ts_second/status/rotation
 	chown system /sys/class/vts/vivo_ts_second/status/virt_prox_enable
 	start touchupdate
-	start touchaddpanel
 
 service touchupdate /system/bin/vts_app_recovery --update
 	class core
 	user system
 	disabled
-	seclabel u:r:recovery:s0
-	oneshot
-
-service touchaddpanel /system/bin/vts_app_recovery --addpanel
-	class core
-	user system
-	disabled
-	seclabel u:r:recovery:s0
+	seclabel u:r:vts_app:s0
 	oneshot

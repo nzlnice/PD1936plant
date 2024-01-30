@@ -1,3 +1,5 @@
-# PD1936plant
+# PD1936 Plant tree
 Plant from XIAOMI 9T PRO AND IQOO Z1
-Testing twrp tree
+Testing TWRP DEVICE TREE
+IQOO Neo855 
+just for testing
